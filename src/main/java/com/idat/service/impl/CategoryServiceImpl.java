@@ -11,6 +11,7 @@ import org.springframework.util.ObjectUtils;
 import com.idat.dto.CategoryDto;
 import com.idat.dto.CategoryResponse;
 import com.idat.entity.Category;
+import com.idat.exception.ExistDataException;
 import com.idat.exception.ResourceNotFounfException;
 import com.idat.repository.CategoryRepository;
 import com.idat.service.*;
@@ -32,7 +33,11 @@ public class CategoryServiceImpl implements  CategoryService{
 	public Boolean saveCategory(CategoryDto categoryDto) {
 		//validation checking
 		validation.categoryValidation(categoryDto);
-		
+		//check category exist or not
+		Boolean exist = categoryRepository.existsByName(categoryDto.getName().trim());
+		if (exist) {
+			throw new ExistDataException("Category already exist");
+		}
 		Category category = mapper.map(categoryDto, Category.class);
 		if (ObjectUtils.isEmpty(category.getId())) {
 			category.setIsDeleted(false); 
