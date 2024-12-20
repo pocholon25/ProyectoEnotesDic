@@ -21,9 +21,9 @@ import lombok.Setter;
 public class GenericResponse {
 	
 	private HttpStatus responseStatus;
-	private String status;
-	private String message;
-	private Object data;
+	private String status; //success or failed
+	private String message; //saved success or not saved
+	private Object data; // data 
 	
 	public ResponseEntity<?> create(){
 		Map<String, Object> map = new LinkedHashMap<>();
