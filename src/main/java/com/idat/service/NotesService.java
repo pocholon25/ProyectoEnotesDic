@@ -6,7 +6,7 @@ import com.idat.dto.NotesDto;
 
 public interface NotesService {
 
-	public Boolean saveNotes(NotesDto notesDto);
+	public Boolean saveNotes(NotesDto notesDto) throws Exception;
 	
 	public List<NotesDto> getallNotes();
 	

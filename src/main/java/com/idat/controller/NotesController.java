@@ -24,7 +24,7 @@ public class NotesController {
 	private NotesService notesService;
 	
 	@PostMapping("/")
-	public ResponseEntity<?> saveNotes(@RequestBody NotesDto notesDto){
+	public ResponseEntity<?> saveNotes(@RequestBody NotesDto notesDto) throws Exception{
 		Boolean saveNotes = notesService.saveNotes(notesDto);
 		if (saveNotes) {
 			return CommonUtil.createBuildResponseMessage("Notes saved success", HttpStatus.CREATED);
