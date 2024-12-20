@@ -19,13 +19,18 @@ public class Validation {
 		}else {
 			//validation name field
 			if (ObjectUtils.isEmpty(categoryDto.getName())) {
-				error.put("name", "name field is emprty or null");
+	            error.put("name", "The name field is required and cannot be null or empty.");
 			}else {
-				if (categoryDto.getName().length()<3) {
-					error.put("name", "name lenght min 3");
-				}if (categoryDto.getName().length()>100) {
-					error.put("name", "name lenght max 100");
-				}
+				String trimName = categoryDto.getName().trim();
+				if (trimName.isEmpty()) {
+	                error.put("name", "The name field cannot contain only spaces.");
+				}else {
+					if (trimName.length()<3) {
+	                    error.put("name", "The name field must have at least 3 characters.");
+					}if (trimName.length()>100) {
+	                    error.put("name", "The name field must not exceed 100 characters.");
+					}
+				}				
 			}
 			//validation description
 			if (ObjectUtils.isEmpty(categoryDto.getDescription())) {
@@ -36,16 +41,13 @@ public class Validation {
 				error.put("isActive", "isActive field is emprty or null");
 			}else {
 				if (categoryDto.getIsActive() != Boolean.TRUE.booleanValue() &&
-						categoryDto.getIsActive() != Boolean.FALSE.booleanValue()) {
+					categoryDto.getIsActive() != Boolean.FALSE.booleanValue()) {
 					error.put("isActive", "invalid value isActive field");
 				}
-			}
-			
+			}		
 		}
 		if (!error.isEmpty()) {
 			throw new ValidationException(error);
-		}
-		
+		}		
 	}
-	
 }
